@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6667a2564465454b9af621e6f2f65b2, type: 3}
   m_Name: PlayerVallet
   m_EditorClassIdentifier: 
-  _valueCouns: 1000
+  _valueCouns: 0

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gunId: 1
   _prefab: {fileID: 3132350942940384785, guid: ee8b714d88d84004fa8395731f88edb6, type: 3}
-  _iUlock: 0
+  _iUlock: 1
   _price: 200
   _updateNumber: 0
   _shotConfig:
