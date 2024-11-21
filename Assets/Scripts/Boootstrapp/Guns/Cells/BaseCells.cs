@@ -1,14 +1,18 @@
-﻿using Boootstrapp.GameFSM.Interfaces;
+﻿using System;
+using Boootstrapp.GameFSM.Interfaces;
 using Boootstrapp.Services.Factory;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Services;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Boootstrapp.Guns.Cells
 {
     public class BaseCells : MonoBehaviour, ICell
     {
         protected IDragAndDropItem Item;
+        protected BaseCells CellsType;
 
         private Vector3 _offset = new Vector3(0, 0.19f, 0);
         public IDragAndDropItem ItemID { get; set; }
@@ -36,18 +40,18 @@ namespace Boootstrapp.Guns.Cells
         {
             var factoryGun = ServiceLocator.Instance.GetService<GunFactory>();
             var upgradedItem = factoryGun.CreateGun(Item.ItemID + 1, transform);
-            upgradedItem.Init();
-            Destroy(Item.Transform.gameObject);
-            Destroy(item.Transform.gameObject);
             return upgradedItem;
         }
 
 
         public virtual void AssignItem(IDragAndDropItem item)
         {
+            CellsType = this;
             if (item == null) return;
             if (Item == null)
             {
+                item.RotationToEnemy.Reset();
+                item.ShotComponent.Reset();
                 Item = item;
                 ItemID = Item;
                 Item.RotationToEnemy.Reset();
@@ -62,33 +66,36 @@ namespace Boootstrapp.Guns.Cells
 
             if (Item != null && Item.ItemID == item.ItemID)
             {
-                float angleA = Random.Range(0f, 360f);
-                Vector2 positionA = GetPositionOnCircumference(angleA, _radius, transform);
-                float angleB = angleA + 180f;
-                Vector2 positionB = GetPositionOnCircumference(angleB, _radius, transform);
-
-                Item.Transform.position = positionA;
-                item.Transform.position = positionB;
-
-                Item.Transform.DOMove(transform.position - _offset, _animationDuratiom).SetEase(Ease.InOutQuad)
-                    .OnComplete(() => { Destroy(Item.Transform.gameObject); });
-
-                item.Transform.DOMove(transform.position - _offset, _animationDuratiom).SetEase(Ease.InOutQuad)
-                    .OnComplete(
-                        () =>
-                        {
-                            var upgradeItem = UpdateShootingСannon(item);
-                            if (Item.RotationToEnemy.Target != null)
-                            {
-                                upgradeItem.RotationToEnemy.Active();
-                            }
-
-                            Item = upgradeItem;
-                            ItemID = Item;
-                            Item.OnDrop(Position);
-                            Destroy(item.Transform.gameObject);
-                        });
+                MergeItems(item);
             }
+        }
+
+        private async void MergeItems(IDragAndDropItem item)
+        {
+            var delay = TimeSpan.FromSeconds(_animationDuratiom);
+            var itemOne = Item;
+            var itemTwo = item;
+            float angleA = Random.Range(0f, 360f);
+            Vector2 positionA = GetPositionOnCircumference(angleA, _radius, transform);
+            float angleB = angleA + 180f;
+            Vector2 positionB = GetPositionOnCircumference(angleB, _radius, transform);
+
+            itemOne.MyTransform.position = positionA;
+            itemTwo.MyTransform.position = positionB;
+
+            itemOne.MyTransform.DOMove(transform.position - _offset, _animationDuratiom).SetEase(Ease.InOutQuad)
+                .OnComplete(() => { Destroy(itemOne.MyTransform.gameObject); });
+
+            itemTwo.MyTransform.DOMove(transform.position - _offset, _animationDuratiom).SetEase(Ease.InOutQuad)
+                .OnComplete(() => { Destroy(itemTwo.MyTransform.gameObject); });
+            await UniTask.Delay(delay);
+            var upgradeItem = UpdateShootingСannon(itemOne);
+            upgradeItem.Init();
+            CellsType.AssignItem(upgradeItem);
+            Item = upgradeItem;
+            Item.Init();
+            ItemID = Item;
+            Item.OnDrop(Position);
         }
 
         private Vector2 GetPositionOnCircumference(float angle, float radius, Transform center)

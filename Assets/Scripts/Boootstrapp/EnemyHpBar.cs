@@ -11,7 +11,6 @@ public class EnemyHpBar : MonoBehaviour
     {
         float progress = (float)enemyHp / MaxHp;
         progress = Mathf.Clamp01(progress);
-        Debug.Log(progress);
         _hpBar.fillAmount = progress;
     }
 }

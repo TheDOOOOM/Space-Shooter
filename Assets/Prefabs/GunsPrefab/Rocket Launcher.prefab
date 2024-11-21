@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3132350942940384785}
   - component: {fileID: 4217162334408808525}
   - component: {fileID: 5806167762784553684}
+  - component: {fileID: 9029404716697274569}
   m_Layer: 0
   m_Name: Rocket Launcher
   m_TagString: Untagged
@@ -47,10 +48,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3230fc19bdfa4d1b960b1175346dcbd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Projectile: {fileID: 304434440821759530, guid: 696eb09e4e1e83c45be71390dd0ce0b9, type: 3}
-  _rotationToEnemy: {fileID: 5806167762784553684}
-  _shotPoint: {fileID: 3072941856430884819}
-  _shotDelay: 1
+  RotationToComponent: {fileID: 5806167762784553684}
+  _shotComponent: {fileID: 9029404716697274569}
 --- !u!61 &4217162334408808525
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -108,6 +107,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17d72f935cd9c4b4797a6da902b62f25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &9029404716697274569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1210674623854603227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11b13323bdb46474f91ebf8204458407, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _projectile: {fileID: 304434440821759530, guid: 696eb09e4e1e83c45be71390dd0ce0b9, type: 3}
+  _shotPoint: {fileID: 3072941856430884819}
+  _shotDelay: 1
 --- !u!1 &3205127395845464565
 GameObject:
   m_ObjectHideFlags: 0

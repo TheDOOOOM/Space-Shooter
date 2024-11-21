@@ -59,7 +59,7 @@ namespace DragAndDrop
         {
             if (_currentItem != null)
             {
-                _currentItem.Transform.position = touchPosition;
+                _currentItem.OnDrag(touchPosition);
             }
         }
 

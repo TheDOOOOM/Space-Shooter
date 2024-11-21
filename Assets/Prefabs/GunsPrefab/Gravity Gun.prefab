@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3164188764272954146}
   - component: {fileID: 4420189605183886517}
   - component: {fileID: 1123717598389224502}
+  - component: {fileID: 8010702451800324314}
   m_Layer: 0
   m_Name: Gravity Gun
   m_TagString: Untagged
@@ -47,10 +48,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d58cbb8b410451d819519a1da1c0c7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Projectile: {fileID: 2029963959426392004, guid: 5126cf00f5f4b9543a61cd42dfe30049, type: 3}
-  _rotationToEnemy: {fileID: 1123717598389224502}
-  _shotPoint: {fileID: 5629416432821068740}
-  _shotDelay: 1
+  RotationToComponent: {fileID: 1123717598389224502}
+  _shotComponent: {fileID: 8010702451800324314}
 --- !u!61 &4420189605183886517
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -108,6 +107,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17d72f935cd9c4b4797a6da902b62f25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8010702451800324314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 938126579866537336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11b13323bdb46474f91ebf8204458407, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _projectile: {fileID: 2029963959426392004, guid: 5126cf00f5f4b9543a61cd42dfe30049, type: 3}
+  _shotPoint: {fileID: 5629416432821068740}
+  _shotDelay: 1
 --- !u!1 &3775589344520123356
 GameObject:
   m_ObjectHideFlags: 0

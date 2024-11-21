@@ -26,7 +26,7 @@ namespace Boootstrapp.Services.Factory
                 var instanceItem = Object.Instantiate(createItem.GetPrefab(), transform);
                 instanceItem.transform.position = transform.position - _positionOffset;
                 instanceItem.SetId(itemID);
-                instanceItem.SetData(createItem.Config);
+                instanceItem.Init();
                 return instanceItem;
             }
 
